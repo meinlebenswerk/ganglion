@@ -1,5 +1,5 @@
 {
-  "name": "ganlgionjs",
+  "name": "ganglion",
   "version": "0.0.1",
   "description": "shallow learning library",
   "main": "dist/index.js",
