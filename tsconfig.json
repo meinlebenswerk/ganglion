@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "noImplicitAny": true,
+    "lib": ["es6", "dom"],
+    "module": "commonjs",
+    "target": "es5",
+    "declaration": true,
+    "rootDir": ".",
+    "strict": true,
+    "outDir": "dist",
+    "types" : ["node"]
+  },
+  "include": [
+    "src/**/*"
+  ]
+}

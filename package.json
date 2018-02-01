@@ -1,0 +1,22 @@
+{
+  "name": "ganlgionjs",
+  "version": "0.0.1",
+  "description": "shallow learning library",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "prepublish": "npm run build",
+    "dev": "gulp dev",
+    "build": "gulp typescript-compile"
+  },
+  "author": "fatcatstudio",
+  "license": "CPAL-1.0",
+  "devDependencies": {
+    "gulp": "github:gulpjs/gulp#4.0",
+    "gulp-typescript": "^4.0.0-alpha.1",
+    "typescript": "^2.6.2"
+  },
+  "dependencies": {
+    "@types/node": "^9.3.0"
+  }
+}
