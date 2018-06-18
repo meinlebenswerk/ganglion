@@ -11,12 +11,12 @@ export enum TransferfunctionType{
 export class networkhelper{
   currentTF: TransferfunctionType;
 
-  weight: number[];
-  bias:   number[];
-  tresh:  number[];
+  weight: number[] = [];
+  bias:   number[] = [];
+  tresh:  number[] = [];
 
-  use_random: boolean;
-  random: seededRandom;
+  use_random: boolean  = false;
+  random: seededRandom = new seededRandom(0);
 
   constructor(random: boolean, base_data?: number[],  seed?: number){
     this.currentTF = TransferfunctionType.Sigmoid;
@@ -272,15 +272,15 @@ export class networkhelper{
 //DONE
 
 export class networklayer{
-  public inputs:  neuralconnection[];
-  public outputs: neuralconnection[];
-  public neurons: neuron[];
+  public inputs:  neuralconnection[] = [];
+  public outputs: neuralconnection[] = [];
+  public neurons: neuron[] = [];
 
-  private layersize:  number;
-  private inputsize:  number;
-  private outputsize: number;
+  private layersize:  number = 0;
+  private inputsize:  number = 0;
+  private outputsize: number = 0;
 
-  helper: networkhelper;
+  helper: networkhelper | null;
 
   constructor(inputsize: number, layersize: number, outputsize: number, helper: networkhelper){
     this.inputsize = inputsize;
@@ -292,6 +292,7 @@ export class networklayer{
   }
 
   private initLayer(){
+    if(this.helper == null){ return; }
     for(let i=0;i<this.layersize;i++){
       let tmpneuron = new neuron(this.helper.nextBias(), this.helper.nextThreshold(), this.helper);
       this.outputs.push(tmpneuron.getOutput());
@@ -417,6 +418,10 @@ export class neuralconnection{
     return this.weights[index];
   }
 
+  public getWeights() : number[]{
+    return this.weights;
+  }
+
   public setWeight(index: number, weight: number){
     this.weights[index] = weight;
   }
@@ -446,11 +451,11 @@ export class neuralconnection{
 
 export class neuralnetwork {
   private helper: networkhelper;
-  public layerconfig: number[];
+  public layerconfig: number[] = [];
 
-  public layers: networklayer[];
-  public networkinput:  neuralconnection[];
-  public networkoutput: neuralconnection[];
+  public layers: networklayer[] = [];
+  public networkinput:  neuralconnection[] = [];
+  public networkoutput: neuralconnection[] = [];
 
   constructor(layerconfig: number[], helper: networkhelper) {
     this.layerconfig = layerconfig;
@@ -516,6 +521,16 @@ export class neuralnetwork {
   public getnetworksize(): number{
     //return the number of layers
     return this.layerconfig.length;
+  }
+
+  public connectionsAt(i:number) : neuralconnection[]{
+    if(i===0){
+      return this.networkinput;
+    }else if(i<= this.layers.length){
+      return this.layers[i-1].inputs;
+    }else{
+      return this.networkoutput;
+    }
   }
 
 }

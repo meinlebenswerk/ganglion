@@ -9,6 +9,11 @@ var TransferfunctionType;
 //WIP
 var networkhelper = /** @class */ (function () {
     function networkhelper(random, base_data, seed) {
+        this.weight = [];
+        this.bias = [];
+        this.tresh = [];
+        this.use_random = false;
+        this.random = new utils_1.seededRandom(0);
         this.currentTF = TransferfunctionType.Sigmoid;
         this.weight[0] = -0.6;
         this.weight[1] = +0.6;
@@ -240,6 +245,12 @@ exports.networkhelper = networkhelper;
 //DONE
 var networklayer = /** @class */ (function () {
     function networklayer(inputsize, layersize, outputsize, helper) {
+        this.inputs = [];
+        this.outputs = [];
+        this.neurons = [];
+        this.layersize = 0;
+        this.inputsize = 0;
+        this.outputsize = 0;
         this.inputsize = inputsize;
         this.layersize = layersize;
         this.outputsize = outputsize;
@@ -247,6 +258,9 @@ var networklayer = /** @class */ (function () {
         this.initLayer();
     }
     networklayer.prototype.initLayer = function () {
+        if (this.helper == null) {
+            return;
+        }
         for (var i = 0; i < this.layersize; i++) {
             var tmpneuron = new neuron(this.helper.nextBias(), this.helper.nextThreshold(), this.helper);
             this.outputs.push(tmpneuron.getOutput());
@@ -337,6 +351,9 @@ var neuralconnection = /** @class */ (function () {
     neuralconnection.prototype.getWeight = function (index) {
         return this.weights[index];
     };
+    neuralconnection.prototype.getWeights = function () {
+        return this.weights;
+    };
     neuralconnection.prototype.setWeight = function (index, weight) {
         this.weights[index] = weight;
     };
@@ -362,6 +379,10 @@ exports.neuralconnection = neuralconnection;
 //DONE
 var neuralnetwork = /** @class */ (function () {
     function neuralnetwork(layerconfig, helper) {
+        this.layerconfig = [];
+        this.layers = [];
+        this.networkinput = [];
+        this.networkoutput = [];
         this.layerconfig = layerconfig;
         this.helper = helper;
         this.initNetwork();
@@ -418,6 +439,17 @@ var neuralnetwork = /** @class */ (function () {
     neuralnetwork.prototype.getnetworksize = function () {
         //return the number of layers
         return this.layerconfig.length;
+    };
+    neuralnetwork.prototype.connectionsAt = function (i) {
+        if (i === 0) {
+            return this.networkinput;
+        }
+        else if (i <= this.layers.length) {
+            return this.layers[i - 1].inputs;
+        }
+        else {
+            return this.networkoutput;
+        }
     };
     return neuralnetwork;
 }());

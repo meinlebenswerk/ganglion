@@ -1,7 +1,7 @@
 import { seededRandom } from './utils';
 export declare enum TransferfunctionType {
     Linear = "tf_linear",
-    Sigmoid = "tf_sigmoid",
+    Sigmoid = "tf_sigmoid"
 }
 export declare class networkhelper {
     currentTF: TransferfunctionType;
@@ -14,18 +14,18 @@ export declare class networkhelper {
     nextWeight(): number;
     nextBias(): number;
     nextThreshold(): number;
-    private rngNext(min?, max?);
-    private rngNextBool(p?);
+    private rngNext;
+    private rngNextBool;
     transferfunction(input: number, threshold: number): number;
-    private compareLayers(layer1, layer2);
+    private compareLayers;
     compareNetworks(network1: neuralnetwork, network2: neuralnetwork): boolean;
     mutateNetwork(network: neuralnetwork, factor: number, p: number): void;
-    private mutateValue(variable, factor, p);
-    private mutateLayer(layer, factor, p);
+    private mutateValue;
+    private mutateLayer;
     cloneNetwork(network1: neuralnetwork): neuralnetwork;
-    private cloneLayer(layer1, layer2);
+    private cloneLayer;
     breedNetworks(network1: neuralnetwork, network2: neuralnetwork, factor: number, p: number): neuralnetwork;
-    private breedLayers(layer1, layer2);
+    private breedLayers;
     saveNetwork(network: neuralnetwork): string;
     loadNetwork(data: string): neuralnetwork;
 }
@@ -36,9 +36,9 @@ export declare class networklayer {
     private layersize;
     private inputsize;
     private outputsize;
-    helper: networkhelper;
+    helper: networkhelper | null;
     constructor(inputsize: number, layersize: number, outputsize: number, helper: networkhelper);
-    private initLayer();
+    private initLayer;
     setInputs(inputs: neuralconnection[]): void;
     getOutputs(): neuralconnection[];
     work(): void;
@@ -67,6 +67,7 @@ export declare class neuralconnection {
     constructor();
     addOutput(weight: number): number;
     getWeight(index: number): number;
+    getWeights(): number[];
     setWeight(index: number, weight: number): void;
     getSize(): number;
     setInput(value: number): void;
@@ -80,7 +81,7 @@ export declare class neuralnetwork {
     networkinput: neuralconnection[];
     networkoutput: neuralconnection[];
     constructor(layerconfig: number[], helper: networkhelper);
-    private initNetwork();
+    private initNetwork;
     runNetwork(): void;
     setNetworkInput(data: number[]): void;
     getLayerconfig(): number[];
@@ -88,5 +89,6 @@ export declare class neuralnetwork {
     getinputsize(): number;
     getoutputsize(): number;
     getnetworksize(): number;
+    connectionsAt(i: number): neuralconnection[];
 }
 export { networkDrawHelper } from './methyleneblue';

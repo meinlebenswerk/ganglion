@@ -10,8 +10,8 @@ export class networkDrawHelper {
   canvas:   HTMLCanvasElement;
   context:  CanvasRenderingContext2D;
 
-  sx: number;
-  sy: number;
+  sx: number = 0;
+  sy: number = 0;
 
   resize: boolean;
 
@@ -25,10 +25,6 @@ export class networkDrawHelper {
 
     this.resize = true;
 
-    this.init();
-  }
-
-  private init(){
     this.context = <CanvasRenderingContext2D> this.canvas.getContext("2d");
   }
 

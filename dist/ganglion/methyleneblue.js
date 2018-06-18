@@ -3,17 +3,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
 //DONE (TODO: fix transfercoloring)
 var networkDrawHelper = /** @class */ (function () {
     function networkDrawHelper(canvas) {
+        this.sx = 0;
+        this.sy = 0;
         this.canvas = canvas;
         //Color Setup::
         this.clearcolor = "#282A37";
         this.offcolor = "#54584B";
         this.oncolor = "#7DB213";
         this.resize = true;
-        this.init();
-    }
-    networkDrawHelper.prototype.init = function () {
         this.context = this.canvas.getContext("2d");
-    };
+    }
     networkDrawHelper.prototype.updateCanvasSize = function () {
         this.sx = this.canvas.getBoundingClientRect().width;
         this.sy = this.canvas.getBoundingClientRect().height;
